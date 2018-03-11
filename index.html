@@ -3,30 +3,104 @@
 <head lang="en">
 	<meta charset="utf-8">
 	<title>Hangman</title>
-	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-	<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+	<!-- link to google font -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/reset.css">
+	<!-- Latest compiled and minified Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="assets/css/main.css">
 </head>
-<body>
+<body class="text-center container">
+
 	<header>
-		<h1>Welcome to Online Hangman - 2017 Movies</h1>
-		<button id="start">New Game</button>
+		<section class="page-header">
+			<h1>
+				Welcome to Online Hangman <br>
+				<small>Theme: 2017 Movies</small>
+			</h1>
+			<button id="start" class="btn btn-warning btn-lg">New Game</button>
+		</section>	
 	</header>
 
-	<section>
-		<p>Press a letter on your keyboard. If the letter is in the word, it will replace the blanks in the world. If not, you will lose a life. 
-		<br>
-		If you guess incorrectly 6 times, you have lost the game. You can only use each letter once per game.</p>
+	<section class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+			    	<h3 class="panel-title" id="playWin">How to play:</h3>
+			  	</div>
+			  	<div class="panel-body" id="scores">
+			    	<p>Press a letter on your keyboard. 
+			    	<br>
+			    	If the letter is in the word, it will replace the blanks in the world. 
+			    	<br>	
+			    	If not, you will lose a life. 
+					<br>
+					If you guess incorrectly 6 times, you have lost the game.
+					<br>
+					You can only use each letter once per game.</p>
+			  	</div>
+			</div>
+		</div>
 	</section>
 
-	<section>
-		<h4>Letters Used: <span id="used"></span></h4>
-		<h4>Remaining Lives: <span id="lives">6</span></h4>
+	<section class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-3">
+			<div class="panel panel-info">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title">Letters Used:</h3>
+			  	</div>
+			  	<div class="panel-body">
+			    	<span id="used">Game Not Started</span>
+			  	</div>
+			</div>
+		</div>
+		
+		<div class="col-md-2">
+			<div class="panel panel-warning">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title">Remaining Lives:</h3>
+			  	</div>
+			  	<div class="panel-body">
+			    	<span id="live">Game Not Started</span>
+			  	</div>
+			</div>
+		</div>
+
+		<div class="col-md-3">
+			<div class="panel panel-danger">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title">Warnings:</h3>
+			  	</div>
+			  	<div class="panel-body">
+			    	<span id="warn">Game Not Started</span>
+			  	</div>
+			</div>
+		</div>
+
 	</section>
 
-	<section>
-		<h4>The mystery word: <span id="mysteryWord"></span></h4>
+	<section class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<div class="panel panel-success">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title">The mystery movie title:</h3>
+			  	</div>
+			  	<div class="panel-body">
+			    	<span id="mysteryWord">Game Not Started</span>
+			  	</div>
+			</div>
+		</div>
 	</section>
 
-	<script type="text/javascript" src="assets/javascript/game.js"></script>
+	<footer class="row">
+		<div class="col-md-12">
+			<h3 class="panel-title">&#169; 2018 Mark Joshua Bihag. All rights reserved.</h3>
+		</div>
+	</footer>	
+
+	<script src="assets/javascript/game.js"></script>
 </body>
 </html>

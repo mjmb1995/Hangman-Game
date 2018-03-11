@@ -11,11 +11,21 @@
         };
     }
 
+    function updateWin() {
+  		var wins = 0;
+
+  		return function () {
+    	wins++;
+    	document.getElementById("playWin").innerHTML = "Congratulations";
+        document.getElementById("scores").innerHTML = "You have won: " + wins + " times";
+  		}
+	}
+	var playerWon = updateWin();
+
     document.getElementById("start").onclick = function() {
         var gameEnded = false;
         //user starts with 6 lives
         var lives = 6;
-        document.getElementById("lives").innerHTML = lives;
 
         var pickWord = wordSelector();
         var word = pickWord();
@@ -30,6 +40,9 @@
         // letters that have been used
         var usedLetters = [];
         var usedLettersUI = "";
+
+        // warnings for invalid user input
+        var warning = "";
 
         // fills the values of the wordLetters and letterBlanks
         for (var i = 0; i < word.length; i++) {
@@ -53,14 +66,19 @@
             letterBlanksUI += " " + letterBlanks[i];
         }
         document.getElementById("mysteryWord").innerHTML = letterBlanksUI;
+        document.getElementById("used").innerHTML = usedLettersUI;
+        document.getElementById("warn").innerHTML = warning;
+        document.getElementById("live").innerHTML = lives;
+
 
         //user can now start guessing
         document.onkeyup = function(event) {
             if (gameEnded === false) {
+            	document.getElementById("warn").innerHTML = " ";
                 //user guess is now lower case
                 var userGuess = event.key.toLowerCase();
 
-                var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k,", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+                var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
                 // user guess needs to be a letter and not already used
                 if (letters.indexOf(userGuess) !== -1 && usedLetters.indexOf(userGuess) === -1) {
@@ -83,6 +101,7 @@
                                 //if letterBlanks does have any _ then user wins
                                 if (letterBlanks.indexOf("_") === -1) {
                                     gameEnded = true;
+                                    playerWon();                          
                                 }
                             }
                         }
@@ -96,17 +115,19 @@
 
                     } else {
                         lives--;
-                        document.getElementById("lives").innerHTML = lives;
+                        document.getElementById("live").innerHTML = lives;
+                        document.getElementById("warn").innerHTML = "Letter is not in the movie title. Minus 1 life..";
 
                         //if lives = 0 then game over
                         if (lives === 0) {
                             gameEnded = true;
+                            document.getElementById("warn").innerHTML = "You lost.. The movie title was: " + word;
                         }
                     }
 
                     // user pressed a non-letter character
                 } else {
-                    console.log("This is not a letter or you have already used it this game!");
+                    document.getElementById("warn").innerHTML = "This is not a letter or you have already used it this game";
                 }
             }
         }
