@@ -16,6 +16,7 @@ document.getElementById("start").onclick = function() {
 	var gameEnded = false;
 	//user starts with 6 lives
 	var lives = 6;
+	document.getElementById("lives").innerHTML = lives;
 
 	var word = pickWord();
 
@@ -24,9 +25,11 @@ document.getElementById("start").onclick = function() {
 
 	// this is what the player will see
 	var letterBlanks = [];
+	var letterBlanksUI = "";
 
 	// letters that have been used
 	var usedLetters = [];
+	var usedLettersUI = "";
 
 	// fills the values of the wordLetters and letterBlanks
 	for (var i = 0; i < word.length; i++){
@@ -50,6 +53,13 @@ document.getElementById("start").onclick = function() {
 		}
 	}
 
+	// creates initial blanks for user to solve
+	for (var i = 0; i < letterBlanks.length; i++) {
+		letterBlanksUI += " " + letterBlanks[i];
+	}
+	console.log(letterBlanksUI.length);
+	document.getElementById("mysteryWord").innerHTML = letterBlanksUI;
+
 	//user can now start guessing
 	document.onkeyup = function(event){
 		
@@ -64,15 +74,21 @@ document.getElementById("start").onclick = function() {
 				console.log("This is a letter")
 				usedLetters.push(userGuess);
 
+				//updating the used letters section on web page for user
+				usedLettersUI += " " + userGuess;
+				document.getElementById("used").innerHTML = usedLettersUI;
+
+
 				// checking user input against letters in word
 				if (wordLetters.indexOf(userGuess) !== -1) {
 					console.log("This letter is in the word");
 
 					//looking for the index of the letter in the word
 					for (var j = 0; j < wordLetters.length; j++){
+
 						if (userGuess === wordLetters[j]){
 							letterBlanks[j] = userGuess;
-							console.log(letterBlanks);
+							
 
 							//if letterBlanks does have any _ then user wins
 							if (letterBlanks.indexOf("_") === -1) {
@@ -82,9 +98,18 @@ document.getElementById("start").onclick = function() {
 						}
 					}
 
+				//updates the web page with correct letters of the word
+				letterBlanksUI = "";	
+				for (var i = 0; i < letterBlanks.length; i++) {
+					letterBlanksUI += " " + letterBlanks[i];
+				}
+				console.log(letterBlanksUI.length);
+				document.getElementById("mysteryWord").innerHTML = letterBlanksUI;
+
 				} else {
 					console.log("That letter is not in the word");
 					lives--;
+					document.getElementById("lives").innerHTML = lives;
 
 					//if lives = 0 then game over
 					if (lives === 0){
